@@ -1,10 +1,9 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { motion } from "framer-motion";
 import { getUser } from "~/session.server";
 
-import { useOptionalUser } from "~/utils";
+// import { useOptionalUser } from "~/utils";
 
 type LoaderData = {
   user: Awaited<ReturnType<typeof getUser>>;

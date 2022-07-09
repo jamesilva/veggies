@@ -13,16 +13,16 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useLocation,
-  useOutlet,
   useSubmit,
   useTransition,
 } from "@remix-run/react";
 
+import NProgress from "nprogress";
+import nProgressStyles from "nprogress/nprogress.css";
+
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import { NavLink } from "react-router-dom";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import React from "react";
 
 export const links: LinksFunction = () => {
@@ -55,30 +55,15 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
-const variants = {
-  visible: { opacity: 1, transition: { duration: 0.6, type: "tween" } },
-  hidden: { opacity: 0, transition: { duration: 0.6, type: "tween" } },
-};
 export default function App() {
-  let outlet = useOutlet();
   let loaderData = useLoaderData<LoaderData>();
   let submit = useSubmit();
-  const location = useLocation().key;
-  const transition = useTransition();
-  const targetLocation = React.useRef(location);
-  const controls = useAnimation();
+  let transition = useTransition();
 
   React.useEffect(() => {
-    if (transition.location) {
-      targetLocation.current = transition.location.key;
-      controls.start("hidden");
-    } else if (location === targetLocation.current) {
-      targetLocation.current = "";
-      controls.set("hidden");
-      controls.start("visible");
-    }
-  }, [transition.location, location, controls]);
-
+    if (transition.state === "idle") NProgress.done();
+    else NProgress.start();
+  }, [transition.state]);
   return (
     <html lang="pt-PT" className="h-full overflow-x-hidden overflow-y-scroll">
       <head>
@@ -133,15 +118,7 @@ export default function App() {
             )}
           </nav>
         </div>
-        <motion.main
-          key={location}
-          className="h-full pt-16"
-          variants={variants}
-          initial="hidden"
-          animate={controls}
-        >
-          {outlet}
-        </motion.main>
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
