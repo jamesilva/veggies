@@ -12,9 +12,10 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Products() {
-  let { products } = useLoaderData<LoaderData>();
+  let loaderData = useLoaderData<LoaderData>();
 
-  return products.map((product) => {
+  if (!loaderData) return null;
+  return loaderData?.products?.map((product) => {
     return <ProductComponent key={product.id} product={product} />;
   });
 }
