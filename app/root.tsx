@@ -36,6 +36,7 @@ export const links: LinksFunction = () => {
       href: "https://fonts.googleapis.com/css2?family=Montserrat&display=swap",
     },
     { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "stylesheet", href: nProgressStyles },
   ];
 };
 
@@ -55,6 +56,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
+NProgress.configure({ showSpinner: false, trickleSpeed: 200 });
 export default function App() {
   let loaderData = useLoaderData<LoaderData>();
   let submit = useSubmit();
@@ -64,6 +66,7 @@ export default function App() {
     if (transition.state === "idle") NProgress.done();
     else NProgress.start();
   }, [transition.state]);
+
   return (
     <html lang="pt-PT" className="h-full overflow-x-hidden overflow-y-scroll">
       <head>
@@ -118,7 +121,9 @@ export default function App() {
             )}
           </nav>
         </div>
-        <Outlet />
+        <main className="h-full pt-16">
+          <Outlet />
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
