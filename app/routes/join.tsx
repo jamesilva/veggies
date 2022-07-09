@@ -4,20 +4,13 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import {
-  Form,
-  Link,
-  useActionData,
-  useLocation,
-  useSearchParams,
-} from "@remix-run/react";
+import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
 import * as React from "react";
 
 import { getUserId, createUserSession } from "~/session.server";
 
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { safeRedirect, validateEmail } from "~/utils";
-import { motion } from "framer-motion";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);

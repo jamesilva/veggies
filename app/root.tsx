@@ -56,8 +56,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 const variants = {
-  visible: { opacity: 1, transition: { duration: 1, type: "tween" } },
-  hidden: { opacity: 0, transition: { duration: 1, type: "tween" } },
+  visible: { opacity: 1, transition: { duration: 0.6, type: "tween" } },
+  hidden: { opacity: 0, transition: { duration: 0.6, type: "tween" } },
 };
 export default function App() {
   let outlet = useOutlet();
