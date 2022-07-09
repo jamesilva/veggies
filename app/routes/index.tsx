@@ -1,23 +1,10 @@
-import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { motion } from "framer-motion";
-import { getUser } from "~/session.server";
+import { Link } from "@remix-run/react";
 
 import { useOptionalUser } from "~/utils";
 
-type LoaderData = {
-  user: Awaited<ReturnType<typeof getUser>>;
-};
-
-export const loader: LoaderFunction = async ({ request }) => {
-  let user = await getUser(request);
-  return json<LoaderData>({ user });
-};
-
 export default function Index() {
-  let { user } = useLoaderData<LoaderData>();
-
+  // let { user } = useLoaderData<LoaderData>();
+  let user = useOptionalUser();
   return (
     <>
       <section className="relative">
