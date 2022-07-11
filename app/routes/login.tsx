@@ -14,7 +14,11 @@ import { safeRedirect, validateEmail } from "~/utils";
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
   if (userId) return redirect("/");
+<<<<<<< HEAD
   return {};
+=======
+  return json({});
+>>>>>>> framer-motion-useTransition
 };
 
 interface ActionData {
