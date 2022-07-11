@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { getUser } from "~/session.server";
-=======
 import { Link } from "@remix-run/react";
->>>>>>> framer-motion-useTransition
 
-// import { useOptionalUser } from "~/utils";
+import { useOptionalUser } from "~/utils";
 
 export default function Index() {
   // let { user } = useLoaderData<LoaderData>();

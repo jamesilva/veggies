@@ -12,20 +12,16 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useLocation,
+  useOutlet,
   useSubmit,
   useTransition,
 } from "@remix-run/react";
 
-import NProgress from "nprogress";
-import nProgressStyles from "nprogress/nprogress.css";
-
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import { NavLink } from "react-router-dom";
-<<<<<<< HEAD
-=======
 import { motion, useAnimation } from "framer-motion";
->>>>>>> framer-motion-useTransition
 import React from "react";
 
 export const links: LinksFunction = () => {
@@ -39,7 +35,6 @@ export const links: LinksFunction = () => {
       href: "https://fonts.googleapis.com/css2?family=Montserrat&display=swap",
     },
     { rel: "stylesheet", href: tailwindStylesheetUrl },
-    { rel: "stylesheet", href: nProgressStyles },
   ];
 };
 
@@ -59,26 +54,15 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
-<<<<<<< HEAD
-NProgress.configure({ showSpinner: false, trickleSpeed: 200 });
-=======
 const variants = {
   visible: { opacity: 1, transition: { duration: 0.6, type: "tween" } },
   hidden: { opacity: 0, transition: { duration: 0.6, type: "tween" } },
 };
 
->>>>>>> framer-motion-useTransition
 export default function App() {
+  let outlet = useOutlet();
   let loaderData = useLoaderData<LoaderData>();
   let submit = useSubmit();
-<<<<<<< HEAD
-  let transition = useTransition();
-
-  React.useEffect(() => {
-    if (transition.state === "idle") NProgress.done();
-    else NProgress.start();
-  }, [transition.state]);
-=======
   const location = useLocation().key;
   const transition = useTransition();
   const targetLocation = React.useRef(location);
@@ -96,7 +80,6 @@ export default function App() {
       controls.start("visible");
     }
   }, [transition.location, location, controls]);
->>>>>>> framer-motion-useTransition
 
   return (
     <html lang="pt-PT" className="h-full overflow-x-hidden overflow-y-scroll">
@@ -104,7 +87,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
+      <body className="text-teal h-full ">
         <div className="fixed z-10 w-full bg-white">
           <nav className="flex flex-col items-center justify-between gap-y-2 py-4 px-[3vw] md:flex-row">
             <div className="flex w-full items-center justify-between md:w-auto">
@@ -116,8 +99,6 @@ export default function App() {
               </Link>
               <button
                 className="flex items-center md:hidden"
-                type="button"
-                aria-label="menu button"
                 onClick={() => setVisible((val) => !val)}
               >
                 <svg
@@ -141,7 +122,7 @@ export default function App() {
             <div
               className={`${
                 visible ? "flex" : "hidden"
-              } grow flex-col items-center gap-y-3 md:flex md:flex-row`}
+              } grow flex-col items-center gap-y-3 md:flex md:flex-row `}
             >
               <ul className="flex grow flex-col items-center gap-y-1 transition duration-200 md:flex-row md:space-x-8">
                 <li>
@@ -183,9 +164,15 @@ export default function App() {
             </div>
           </nav>
         </div>
-        <main className="h-full pt-16">
-          <Outlet />
-        </main>
+        <motion.main
+          key={location}
+          className="h-full pt-16"
+          variants={variants}
+          initial="hidden"
+          animate={controls}
+        >
+          {outlet}
+        </motion.main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
