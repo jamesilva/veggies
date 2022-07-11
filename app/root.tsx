@@ -9,7 +9,6 @@ import {
   Links,
   LiveReload,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -22,7 +21,7 @@ import {
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import { NavLink } from "react-router-dom";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import React from "react";
 
 export const links: LinksFunction = () => {
@@ -59,6 +58,7 @@ const variants = {
   visible: { opacity: 1, transition: { duration: 0.6, type: "tween" } },
   hidden: { opacity: 0, transition: { duration: 0.6, type: "tween" } },
 };
+
 export default function App() {
   let outlet = useOutlet();
   let loaderData = useLoaderData<LoaderData>();
@@ -67,6 +67,7 @@ export default function App() {
   const transition = useTransition();
   const targetLocation = React.useRef(location);
   const controls = useAnimation();
+  const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
     if (transition.location) {
@@ -74,6 +75,7 @@ export default function App() {
       controls.start("hidden");
     } else if (location === targetLocation.current) {
       targetLocation.current = "";
+      setVisible(false);
       controls.set("hidden");
       controls.start("visible");
     }
@@ -85,52 +87,83 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full ">
+      <body className="h-full">
         <div className="fixed z-10 w-full bg-white">
-          <nav className="flex items-center justify-between py-4 px-[3vw]">
-            <Link
-              to="/"
-              className="mr-8 text-2xl font-bold tracking-tight text-green-900"
-            >
-              vege.tal
-            </Link>
-            <ul className="hidden grow space-x-8 lg:flex">
-              <li>
-                <NavLink to="/produtos">Produtos</NavLink>
-              </li>
-              <li>
-                <NavLink to="/about">Sobre Nós</NavLink>
-              </li>
-              <li>
-                <NavLink to="/contacto">Contacto</NavLink>
-              </li>
-            </ul>
-            {loaderData.user ? (
-              <button
-                type="button"
-                className="rounded border border-transparent py-1 px-3 hover:bg-gray-100"
-                onClick={() =>
-                  submit(null, { method: "post", action: "logout" })
-                }
+          <nav className="flex flex-col items-center justify-between gap-y-2 py-4 px-[3vw] md:flex-row">
+            <div className="flex w-full items-center justify-between md:w-auto">
+              <Link
+                to="/"
+                className="mr-8 text-2xl font-bold tracking-tight text-green-900"
               >
-                {loaderData.user.email}
+                vege.tal
+              </Link>
+              <button
+                className="flex items-center md:hidden"
+                type="button"
+                aria-label="menu button"
+                onClick={() => setVisible((val) => !val)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`${
+                    visible ? "rotate-90" : ""
+                  } h-6 w-6 transition duration-200`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
               </button>
-            ) : (
-              <div className="flex space-x-4">
-                <Link
-                  to="login"
-                  className="rounded  py-1 px-3 hover:bg-gray-100"
+            </div>
+            <div
+              className={`${
+                visible ? "flex" : "hidden"
+              } grow flex-col items-center gap-y-3 md:flex md:flex-row`}
+            >
+              <ul className="flex grow flex-col items-center gap-y-1 transition duration-200 md:flex-row md:space-x-8">
+                <li>
+                  <NavLink to="/produtos">Produtos</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about">Sobre Nós</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/contacto">Contacto</NavLink>
+                </li>
+              </ul>
+              {loaderData.user ? (
+                <button
+                  type="button"
+                  className="rounded border border-transparent py-1 px-3 hover:bg-gray-100"
+                  onClick={() =>
+                    submit(null, { method: "post", action: "logout" })
+                  }
                 >
-                  Entrar
-                </Link>
-                <Link
-                  to="join"
-                  className="rounded border bg-teal-800 py-1 px-3 text-white hover:bg-teal-700"
-                >
-                  Inscrever
-                </Link>
-              </div>
-            )}
+                  {loaderData.user.email}
+                </button>
+              ) : (
+                <div className="flex space-x-4">
+                  <Link
+                    to="login"
+                    className="rounded  py-1 px-3 hover:bg-gray-100"
+                  >
+                    Entrar
+                  </Link>
+                  <Link
+                    to="join"
+                    className="rounded border bg-teal-800 py-1 px-3 text-white hover:bg-teal-700"
+                  >
+                    Inscrever
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
         </div>
         <motion.main
