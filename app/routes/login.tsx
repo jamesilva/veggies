@@ -91,7 +91,7 @@ export default function LoginPage() {
   }, [actionData]);
 
   return (
-    <div className="flex h-[75vh] flex-col justify-center ">
+    <div className="flex min-h-[75vh] flex-col justify-center ">
       <div className="mx-auto w-full max-w-md space-y-16 px-8">
         <h2 className="text-center text-2xl font-medium">
           Bem vindo de volta!

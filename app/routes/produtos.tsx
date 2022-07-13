@@ -1,9 +1,8 @@
 import type { LoaderFunction } from "@remix-run/node";
-import { Link, useLoaderData, useLocation } from "@remix-run/react";
+import { Link, Outlet, useParams } from "@remix-run/react";
 import { getAllProducts } from "~/models/product.server";
-import ProductComponent from "~/components/ProductComponent";
 
-type LoaderData = {
+export type LoaderData = {
   products: Awaited<ReturnType<typeof getAllProducts>>;
 };
 
@@ -12,58 +11,34 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Products() {
-  let loaderData = useLoaderData<LoaderData>();
+  let { category, productId } = useParams();
 
   return (
-    <>
-      <section className="grid grid-cols-1 gap-x-4 gap-y-4 px-[3vw] md:grid-cols-[200px,1fr]">
-        <header className="py-4 md:col-start-2">
-          {useLocation().pathname}
-        </header>
-        <div className="space-y-2">
-          <input
-            type="text"
-            className="w-full rounded bg-teal-50 p-1"
-            placeholder="Procurar..."
-          />
-          <div className="space-y-4">
-            <div className="space-y-1">
-              <h3 className=" text-teal-900">Categoria</h3>
-              <ul className="space-y-1 indent-1 text-sm text-gray-600">
-                <li>
-                  <Link to="legumes">Legumes</Link>
-                </li>
-                <li>
-                  <Link to="fruta">Fruta</Link>
-                </li>
-                <li>
-                  <Link to="leguminosas">Leguminosas</Link>
-                </li>
-                <li>
-                  <Link to="frutos-secos">Frutos Secos</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-1">
-              <label htmlFor="price" className="block text-teal-900">
-                Preço
-              </label>
-              <input
-                type="range"
-                name="price"
-                id="price"
-                min={0}
-                className="appearance-none rounded-full bg-teal-50 px-1"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="border">
-          {loaderData?.products?.map((product) => {
-            return <ProductComponent key={product.id} product={product} />;
-          })}
-        </div>
-      </section>
-    </>
+    <section className="px-[3vw]">
+      <header className="py-4 md:col-start-2">
+        <ol className="inline-flex gap-x-4">
+          <li>
+            <Link to=".">Categorias</Link>
+          </li>
+          {category ? (
+            <li>
+              {" "}
+              <Link className="capitalize" to={`${category}`}>
+                {category}
+              </Link>
+            </li>
+          ) : null}
+          {/* {productId ? (
+            <li>
+              {" "}
+              <Link className="capitalize" to={`${productId}`}>
+                {productId}
+              </Link>
+            </li>
+          ) : null} */}
+        </ol>
+      </header>
+      <Outlet />
+    </section>
   );
 }

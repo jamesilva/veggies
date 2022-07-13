@@ -17,12 +17,13 @@ import {
   useSubmit,
   useTransition,
 } from "@remix-run/react";
+import React from "react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import { NavLink } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
-import React from "react";
+import { ClientOnly } from "remix-utils";
 
 export const links: LinksFunction = () => {
   return [
@@ -179,15 +180,17 @@ export default function App() {
             </div>
           </nav>
         </div>
+
         <motion.main
           key={location}
-          className="block min-h-full pt-16 pb-8"
+          className="pt-16 pb-8"
           variants={variants}
           initial="hidden"
           animate={controls}
         >
           {outlet}
         </motion.main>
+
         <footer className="w-full px-[3vw] py-6">
           <div className="flex items-center justify-between text-sm">
             <Link to="/" className="">

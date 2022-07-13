@@ -27,11 +27,12 @@ model Password {
 }
 
 model Product {
-  id    String @id @default(cuid())
+  id   String @id @default(cuid())
   name String
   description  String
   price Decimal
   quantity Int
+  category String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -24,24 +24,12 @@ async function seed() {
     },
   });
 
-  await prisma.product.create({
-    data: {
-      name: "Alface",
-      description: `Alface caseira, tipo "iceberg"`,
-      price: 1.5,
-      quantity: 20,
-      producerId: user.id,
-    },
-  });
-  await prisma.product.create({
-    data: {
-      name: "Cerejas",
-      description: `Cerejas do fundão`,
-      price: 6.5,
-      quantity: 20,
-      producerId: user.id,
-    },
-  });
+  await Promise.all(
+    getProducts().map((product) => {
+      let data = { producerId: user.id, ...product };
+      return prisma.product.create({ data });
+    })
+  );
 
   console.log(`Database has been seeded. 🌱`);
 }
@@ -54,3 +42,43 @@ seed()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
+function getProducts() {
+  return [
+    {
+      name: "Alface",
+      description: `Alface caseira, tipo "iceberg"`,
+      price: 1.5,
+      quantity: 20,
+      category: "Legumes",
+    },
+    {
+      name: "Cerejas",
+      description: `Cerejas do fundão`,
+      price: 6.5,
+      quantity: 20,
+      category: "Fruta",
+    },
+    {
+      name: "Feijão",
+      description: `Feijão do fundão`,
+      price: 3.5,
+      quantity: 20,
+      category: "Leguminosas",
+    },
+    {
+      name: "Batatas",
+      description: `Batatas do fundão`,
+      price: 1.5,
+      quantity: 30,
+      category: "Legumes",
+    },
+    {
+      name: "Castanhas",
+      description: `Castanhas do fundão`,
+      price: 6.5,
+      quantity: 20,
+      category: "Frutos Secos",
+    },
+  ];
+}

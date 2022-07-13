@@ -20,6 +20,7 @@
     border: 0;
     border-radius: 1rem;
     appearance: none;
+    cursor: pointer;
     @apply bg-teal-800 hover:bg-teal-700;
   }
 }

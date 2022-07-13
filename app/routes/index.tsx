@@ -168,53 +168,55 @@ export default function Index() {
             className="mx-auto block max-h-[75vh] min-h-[50vh] rounded border border-teal-800 object-cover "
           />
         </div>
-        <div className="flex h-full w-full flex-col items-center justify-center  p-4 lg:row-span-1">
-          <Form method="post" action="join" className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <div className="mt-1">
-                <input
-                  id="email"
-                  required
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
-                />
+        {user ? null : (
+          <div className="flex h-full w-full flex-col items-center justify-center p-4 lg:row-span-1">
+            <Form method="post" action="join" className="space-y-6">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="email"
+                    required
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
-                />
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <div className="mt-1">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="new-password"
+                    className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                  />
+                </div>
               </div>
-            </div>
 
-            <button
-              type="submit"
-              className="w-full rounded bg-teal-600  py-2 px-4 text-white hover:bg-teal-700 focus:bg-teal-500"
-            >
-              Criar Conta
-            </button>
-          </Form>
-        </div>
+              <button
+                type="submit"
+                className="w-full rounded bg-teal-600  py-2 px-4 text-white hover:bg-teal-700 focus:bg-teal-500"
+              >
+                Criar Conta
+              </button>
+            </Form>
+          </div>
+        )}
       </section>
     </>
   );
