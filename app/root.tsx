@@ -87,7 +87,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="text-teal h-full ">
+      <body className="h-full">
         <div className="fixed z-10 w-full bg-white">
           <nav className="flex flex-col items-center justify-between gap-y-2 py-4 px-[3vw] md:flex-row">
             <div className="flex w-full items-center justify-between md:w-auto">
@@ -126,13 +126,28 @@ export default function App() {
             >
               <ul className="flex grow flex-col items-center gap-y-1 transition duration-200 md:flex-row md:space-x-8">
                 <li>
-                  <NavLink to="/produtos">Produtos</NavLink>
+                  <NavLink
+                    to="/produtos"
+                    className={({ isActive }) => (isActive ? "underline" : "")}
+                  >
+                    Produtos
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/about">Sobre Nós</NavLink>
+                  <NavLink
+                    to="/about"
+                    className={({ isActive }) => (isActive ? "underline" : "")}
+                  >
+                    Sobre Nós
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/contacto">Contacto</NavLink>
+                  <NavLink
+                    to="/contacto"
+                    className={({ isActive }) => (isActive ? "underline" : "")}
+                  >
+                    Contacto
+                  </NavLink>
                 </li>
               </ul>
               {loaderData.user ? (
@@ -166,13 +181,38 @@ export default function App() {
         </div>
         <motion.main
           key={location}
-          className="h-full pt-16"
+          className="block min-h-full pt-16 pb-8"
           variants={variants}
           initial="hidden"
           animate={controls}
         >
           {outlet}
         </motion.main>
+        <footer className="w-full px-[3vw] py-6">
+          <div className="flex items-center justify-between text-sm">
+            <Link to="/" className="">
+              App Móvel
+            </Link>
+            <Link to="/" className="">
+              Comunidade
+            </Link>
+            <Link
+              to="/"
+              className="justify-self-center text-xl font-bold tracking-tight text-green-900"
+            >
+              vege.tal
+            </Link>
+            <Link to="/" className="">
+              Ajuda
+            </Link>
+            <Link to="/" className="">
+              Contacto
+            </Link>
+          </div>
+          {/* <p className="w-full text-center text-sm text-gray-700">
+            &copy; Vege.tal {new Date().getFullYear()}{" "}
+          </p> */}
+        </footer>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

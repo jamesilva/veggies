@@ -96,12 +96,12 @@ export default function Index() {
           <div className="relative order-last flex items-center justify-center rounded-sm border-2 border-teal-800 shadow-sm lg:order-first">
             <img
               className="block max-h-96 object-cover"
-              src="pexels-greta-hoffman-7728353.jpg"
+              src="pexels-greta-hoffman-7728345.jpg"
               alt="agricultorres carregando um carrinho de mão"
-              width={6000}
-              height={4000}
+              width={1280}
+              height={853}
             />
-            <div className="absolute top-0 left-0 h-full w-full bg-black opacity-20"></div>
+            <div className="absolute top-0 left-0 h-full w-full bg-black opacity-10"></div>
           </div>
           <div className="flex flex-col justify-center gap-y-4 lg:pl-4">
             <h3 className="text-lg font-bold tracking-wide ">
@@ -136,8 +136,8 @@ export default function Index() {
           </div>
         </article>
       </section>
-      <section className="flex flex-col items-center justify-center gap-y-4 px-[3vw] pt-20 pb-10">
-        <h2 className=" text-2xl tracking-tight">
+      <section className="flex flex-col items-center justify-center gap-y-4 px-[3vw] pt-24 pb-10">
+        <h2 className="text-center text-2xl tracking-tight">
           Faça parte da mudança necessária
         </h2>
         <p className="text-center text-gray-700">
@@ -181,7 +181,6 @@ export default function Index() {
                 <input
                   id="email"
                   required
-                  autoFocus={true}
                   name="email"
                   type="email"
                   autoComplete="email"

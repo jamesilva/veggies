@@ -92,8 +92,9 @@ export default function Join() {
   }, [actionData]);
 
   return (
-    <div className="flex min-h-full flex-col justify-center">
-      <div className="mx-auto  w-full max-w-md px-8">
+    <div className="flex h-[75vh] flex-col justify-center">
+      <div className="mx-auto w-full max-w-md space-y-16 px-8">
+        <h2 className="text-center text-2xl font-medium">Junte-se a nós!</h2>
         <Form method="post" className="space-y-6">
           <div>
             <label
