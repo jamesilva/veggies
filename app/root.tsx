@@ -23,7 +23,6 @@ import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import { NavLink } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
-import { ClientOnly } from "remix-utils";
 
 export const links: LinksFunction = () => {
   return [

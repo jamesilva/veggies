@@ -1,7 +1,6 @@
 import { Form, Link } from "@remix-run/react";
 import { useInView } from "framer-motion";
-import React, { ReactChildren } from "react";
-import type { ReactNode } from "react";
+import React from "react";
 
 import { useOptionalUser } from "~/utils";
 
