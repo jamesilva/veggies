@@ -1,4 +1,7 @@
 import { Form, Link } from "@remix-run/react";
+import { useInView } from "framer-motion";
+import React, { ReactChildren } from "react";
+import type { ReactNode } from "react";
 
 import { useOptionalUser } from "~/utils";
 
@@ -30,7 +33,10 @@ export default function Index() {
         </div>
       </section>
 
-      <section className="grid grid-cols-2 gap-y-8 gap-x-8 px-[3vw] pt-20 pb-10">
+      <AnimatedSection
+        direction={"right"}
+        className="grid grid-cols-2 gap-y-8 gap-x-8 px-[3vw] pt-20 pb-10"
+      >
         <div className="col-span-2">
           <h2 className="w-1/2 text-3xl leading-[3rem] tracking-tight">
             Ingredientes frescos e naturais à distância de um clique
@@ -90,13 +96,13 @@ export default function Index() {
             Saber mais
           </button>
         </div>
-      </section>
-      <section className="pt-8">
+      </AnimatedSection>
+      <AnimatedSection className="pt-8">
         <article className="grid grid-cols-1 gap-y-4 px-[3vw] py-10 lg:grid-cols-2 lg:gap-x-4">
           <div className="relative order-last flex items-center justify-center rounded-sm border-2 border-teal-800 shadow-sm lg:order-first">
             <img
               className="block max-h-96 object-cover"
-              src="pexels-greta-hoffman-7728345.jpg"
+              src="pexels-greta-hoffman-7728345.webp"
               alt="agricultorres carregando um carrinho de mão"
               width={1280}
               height={853}
@@ -127,7 +133,7 @@ export default function Index() {
           <div className="relative flex items-center justify-center rounded-sm border-2 border-teal-800 shadow-sm">
             <img
               className="block max-h-96 object-cover"
-              src="pexels-quang-nguyen-vinh-2135677.jpg"
+              src="pexels-quang-nguyen-vinh-2135677.webp"
               alt="agricultorres carregando um carrinho de mão"
               width={1920}
               height={1280}
@@ -135,8 +141,8 @@ export default function Index() {
             <div className="absolute top-0 left-0 h-full w-full bg-black opacity-20"></div>
           </div>
         </article>
-      </section>
-      <section className="flex flex-col items-center justify-center gap-y-4 px-[3vw] pt-24 pb-10">
+      </AnimatedSection>
+      <AnimatedSection className="flex flex-col items-center justify-center gap-y-4 px-[3vw] pt-24 pb-10">
         <h2 className="text-center text-2xl tracking-tight">
           Faça parte da mudança necessária
         </h2>
@@ -147,8 +153,11 @@ export default function Index() {
         <span className="text-xl" aria-hidden={true}>
           🌼
         </span>
-      </section>
-      <section className="grid grid-cols-1 gap-y-4 py-10 px-[3vw] lg:grid-cols-[2fr,1fr] lg:grid-rows-[auto,1fr] lg:gap-x-4 ">
+      </AnimatedSection>
+      <AnimatedSection
+        direction={"right"}
+        className="grid grid-cols-1 gap-y-4 py-10 px-[3vw] lg:grid-cols-[2fr,1fr] lg:grid-rows-[auto,1fr] lg:gap-x-4 "
+      >
         <div className="space-y-3 lg:row-span-1">
           <q className="text-center text-xl lg:text-left">
             Criei este projeto pois acredito que reduzir a distância entre
@@ -161,7 +170,7 @@ export default function Index() {
         </div>
         <div className=" w-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <img
-            src="pexels-tim-douglas-6205523.jpg"
+            src="pexels-tim-douglas-6205523.webp"
             alt="mulher a sorrir"
             width={640}
             height={878}
@@ -217,7 +226,27 @@ export default function Index() {
             </Form>
           </div>
         )}
-      </section>
+      </AnimatedSection>
     </>
+  );
+}
+
+function AnimatedSection({ direction = "left", ...props }) {
+  let ref = React.useRef<HTMLElement>(null);
+  let inView = useInView(ref, { once: true });
+  return (
+    <section
+      ref={ref}
+      style={{
+        transform: inView
+          ? "none"
+          : `${
+              direction === "right" ? "translateX(-200px)" : "translateX(200px)"
+            }`,
+        opacity: inView ? 1 : 0,
+        transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
+      }}
+      {...props}
+    />
   );
 }

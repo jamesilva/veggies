@@ -100,6 +100,7 @@ export default function App() {
               </Link>
               <button
                 className="flex items-center md:hidden"
+                aria-label="navigation menu"
                 onClick={() => setVisible((val) => !val)}
               >
                 <svg
