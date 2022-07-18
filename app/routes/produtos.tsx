@@ -1,4 +1,4 @@
-import type { LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { Link, Outlet, useParams } from "@remix-run/react";
 import { getAllProducts } from "~/models/product.server";
 
@@ -6,12 +6,16 @@ export type LoaderData = {
   products: Awaited<ReturnType<typeof getAllProducts>>;
 };
 
-export let loader: LoaderFunction = async ({ request }) => {
+export let loader: LoaderFunction = async () => {
   return { products: await getAllProducts() };
 };
 
+export let meta: MetaFunction = () => ({
+  title: "Vege.tal - Produtos",
+});
+
 export default function Products() {
-  let { category, productId } = useParams();
+  let { category } = useParams();
 
   return (
     <section className="px-[3vw]">
@@ -28,14 +32,6 @@ export default function Products() {
               </Link>
             </li>
           ) : null}
-          {/* {productId ? (
-            <li>
-              {" "}
-              <Link className="capitalize" to={`${productId}`}>
-                {productId}
-              </Link>
-            </li>
-          ) : null} */}
         </ol>
       </header>
       <Outlet />

@@ -1,6 +1,6 @@
 import { Form, Link } from "@remix-run/react";
 import { useInView } from "framer-motion";
-import React from "react";
+import React, { Fragment } from "react";
 
 import { useOptionalUser } from "~/utils";
 
@@ -158,7 +158,7 @@ export default function Index() {
         className="grid grid-cols-1 gap-y-4 py-10 px-[3vw] lg:grid-cols-[2fr,1fr] lg:grid-rows-[auto,1fr] lg:gap-x-4 "
       >
         <div className="space-y-3 lg:row-span-1">
-          <q className="text-center text-xl lg:text-left">
+          <q className="text-xl lg:text-left">
             Criei este projeto pois acredito que reduzir a distância entre
             consumidores e produtores é um dos principais métodos que temos para
             reduzir o desperdício e, ao mesmo tempo, fomentar relações entre

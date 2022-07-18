@@ -192,7 +192,7 @@ export default function App() {
         </motion.main>
 
         <footer className="w-full px-[3vw] py-6">
-          <div className="flex items-center justify-between text-sm">
+          <div className="grid grid-cols-[1fr,1fr,2fr,1fr,1fr] text-center text-sm">
             <Link to="/" className="">
               App Móvel
             </Link>
@@ -212,9 +212,6 @@ export default function App() {
               Contacto
             </Link>
           </div>
-          {/* <p className="w-full text-center text-sm text-gray-700">
-            &copy; Vege.tal {new Date().getFullYear()}{" "}
-          </p> */}
         </footer>
         <ScrollRestoration />
         <Scripts />
