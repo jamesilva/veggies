@@ -15,7 +15,7 @@ export default function Index() {
         </video>
         <div className="absolute top-0 left-0 h-full w-full bg-black opacity-70"></div>
         <div className="absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center">
-          <h1 className="mb-10 text-3xl font-semibold text-white">
+          <h1 className="mb-10 text-center text-3xl font-semibold text-white">
             Da nossa mão para a sua.
           </h1>
           {user ? null : (
@@ -32,8 +32,8 @@ export default function Index() {
         </div>
       </section>
 
-      <AnimatedSection
-        direction={"right"}
+      <section
+        // direction={"right"}
         className="grid grid-cols-2 gap-y-8 gap-x-8 px-[3vw] pt-20 pb-10"
       >
         <div className="col-span-2">
@@ -95,8 +95,8 @@ export default function Index() {
             Saber mais
           </button>
         </div>
-      </AnimatedSection>
-      <AnimatedSection className="pt-8">
+      </section>
+      <section className="pt-8">
         <article className="grid grid-cols-1 gap-y-4 px-[3vw] py-10 lg:grid-cols-2 lg:gap-x-4">
           <div className="relative order-last flex items-center justify-center rounded-sm border-2 border-teal-800 shadow-sm lg:order-first">
             <img
@@ -140,8 +140,8 @@ export default function Index() {
             <div className="absolute top-0 left-0 h-full w-full bg-black opacity-20"></div>
           </div>
         </article>
-      </AnimatedSection>
-      <AnimatedSection className="flex flex-col items-center justify-center gap-y-4 px-[3vw] pt-24 pb-10">
+      </section>
+      <section className="flex flex-col items-center justify-center gap-y-4 px-[3vw] pt-24 pb-10">
         <h2 className="text-center text-2xl tracking-tight">
           Faça parte da mudança necessária
         </h2>
@@ -152,9 +152,9 @@ export default function Index() {
         <span className="text-xl" aria-hidden={true}>
           🌼
         </span>
-      </AnimatedSection>
-      <AnimatedSection
-        direction={"right"}
+      </section>
+      <section
+        // direction={"right"}
         className="grid grid-cols-1 gap-y-4 py-10 px-[3vw] lg:grid-cols-[2fr,1fr] lg:grid-rows-[auto,1fr] lg:gap-x-4 "
       >
         <div className="space-y-3 lg:row-span-1">
@@ -225,7 +225,7 @@ export default function Index() {
             </Form>
           </div>
         )}
-      </AnimatedSection>
+      </section>
     </>
   );
 }

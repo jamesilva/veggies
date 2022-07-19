@@ -9,6 +9,7 @@ import {
   Links,
   LiveReload,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
@@ -22,7 +23,11 @@ import React from "react";
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import { NavLink } from "react-router-dom";
-import { motion, useAnimation } from "framer-motion";
+// import { motion, useAnimation } from "framer-motion";
+import nProgress from "nprogress";
+import nProgressStyles from "nprogress/nprogress.css";
+
+nProgress.configure({ showSpinner: false, trickleSpeed: 200 });
 
 export const links: LinksFunction = () => {
   return [
@@ -35,13 +40,17 @@ export const links: LinksFunction = () => {
       href: "https://fonts.googleapis.com/css2?family=Montserrat&display=swap",
     },
     { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "stylesheet", href: nProgressStyles },
   ];
 };
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "Vege.tal",
-  viewport: "width=device-width,initial-scale=1",
+  viewport: "width=device-width,initial-scale=1.0",
+  description:
+    "Venda de vegetais de mais alta qualidade, com origem 100% natural.",
+  keywords: "vegetais, fruta, venda, biológico",
 });
 
 type LoaderData = {
@@ -54,40 +63,45 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
-const variants = {
-  visible: { opacity: 1, transition: { duration: 0.6, type: "tween" } },
-  hidden: { opacity: 0, transition: { duration: 0.6, type: "tween" } },
-};
+// const variants = {
+//   visible: { opacity: 1, transition: { duration: 0.6, type: "tween" } },
+//   hidden: { opacity: 0, transition: { duration: 0.6, type: "tween" } },
+// };
 
 export default function App() {
-  let outlet = useOutlet();
+  // let outlet = useOutlet();
   let loaderData = useLoaderData<LoaderData>();
   let submit = useSubmit();
   const location = useLocation().key;
   const transition = useTransition();
   const targetLocation = React.useRef(location);
-  const controls = useAnimation();
+  // const controls = useAnimation();
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
     if (transition.location) {
       targetLocation.current = transition.location.key;
-      controls.start("hidden");
+      nProgress.start();
+      // controls.start("hidden");
     } else if (location === targetLocation.current) {
       targetLocation.current = "";
       setVisible(false);
-      controls.set("hidden");
-      controls.start("visible");
+      nProgress.done();
+      // controls.set("hidden");
+      // controls.start("visible");
     }
-  }, [transition.location, location, controls]);
+  }, [transition.location, location]);
 
   return (
-    <html lang="pt-PT" className="h-full overflow-x-hidden overflow-y-scroll">
+    <html
+      lang="pt-PT"
+      className="min-h-full overflow-x-hidden overflow-y-scroll"
+    >
       <head>
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
+      <body className="min-h-full w-full">
         <div className="fixed z-10 w-full bg-white">
           <nav className="flex flex-col items-center justify-between gap-y-2 py-4 px-[3vw] md:flex-row">
             <div className="flex w-full items-center justify-between md:w-auto">
@@ -100,6 +114,7 @@ export default function App() {
               <button
                 className="flex items-center md:hidden"
                 aria-label="navigation menu"
+                type="button"
                 onClick={() => setVisible((val) => !val)}
               >
                 <svg
@@ -180,8 +195,10 @@ export default function App() {
             </div>
           </nav>
         </div>
-
-        <motion.main
+        <main className="pt-16 pb-8">
+          <Outlet />
+        </main>
+        {/* <motion.main
           key={location}
           className="pt-16 pb-8"
           variants={variants}
@@ -189,10 +206,10 @@ export default function App() {
           animate={controls}
         >
           {outlet}
-        </motion.main>
+        </motion.main> */}
 
         <footer className="w-full px-[3vw] py-6">
-          <div className="grid grid-cols-[1fr,1fr,2fr,1fr,1fr] text-center text-sm">
+          <div className="grid grid-cols-1 items-center gap-y-2 gap-x-2 text-center text-sm text-gray-500 md:grid-cols-[1fr,1fr,2fr,1fr,1fr]">
             <Link to="/" className="">
               App Móvel
             </Link>
@@ -201,14 +218,14 @@ export default function App() {
             </Link>
             <Link
               to="/"
-              className="justify-self-center text-xl font-bold tracking-tight text-green-900"
+              className="row-start-1 text-xl font-bold tracking-tight text-green-900 md:col-start-3 "
             >
               vege.tal
             </Link>
             <Link to="/" className="">
               Ajuda
             </Link>
-            <Link to="/" className="">
+            <Link to="/contacto" className="">
               Contacto
             </Link>
           </div>
