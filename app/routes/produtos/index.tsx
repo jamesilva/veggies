@@ -1,14 +1,14 @@
 import { Link } from "@remix-run/react";
 
+import legumes from "~/assets/pexels-daria-shevtsova-1508668.webp";
+import fruta from "~/assets/pexels-elizabeth-tr-armstrong-635705.webp";
+import leguminosas from "~/assets/pexels-min-an-1638523.webp";
+import frutosSecos from "~/assets/pexels-arina-krasnikova-6316669.webp";
+
 export default function Index() {
   return (
     <div className="grid grid-cols-1 gap-y-4 gap-x-4 lg:grid-cols-2">
-      <ProductCard
-        img="pexels-daria-shevtsova-1508668.webp"
-        height="1920"
-        width="1280"
-        alt="legumes"
-      >
+      <ProductCard img={legumes} height="1920" width="1280" alt="legumes">
         <Link
           to="legumes"
           className="text-2xl font-semibold uppercase tracking-widest text-white"
@@ -16,12 +16,7 @@ export default function Index() {
           Legumes
         </Link>
       </ProductCard>
-      <ProductCard
-        img="pexels-elizabeth-tr-armstrong-635705.webp"
-        width="1279"
-        height="829"
-        alt="fruta"
-      >
+      <ProductCard img={fruta} width="1279" height="829" alt="fruta">
         <Link
           className="text-2xl font-semibold uppercase tracking-widest text-white"
           to="fruta"
@@ -30,7 +25,7 @@ export default function Index() {
         </Link>
       </ProductCard>
       <ProductCard
-        img="pexels-min-an-1638523.webp"
+        img={leguminosas}
         width="1924"
         height="1280"
         alt="leguminosas"
@@ -43,7 +38,7 @@ export default function Index() {
         </Link>
       </ProductCard>
       <ProductCard
-        img="pexels-arina-krasnikova-6316669.webp"
+        img={frutosSecos}
         height="1919"
         width="1281"
         alt="frutos secos"

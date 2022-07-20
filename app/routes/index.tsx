@@ -1,8 +1,12 @@
 import { Form, Link } from "@remix-run/react";
 import { useInView } from "framer-motion";
-import React, { Fragment } from "react";
+import React from "react";
 
 import { useOptionalUser } from "~/utils";
+
+import farmers from "~/assets/pexels-greta-hoffman-7728345.webp";
+import produtos from "~/assets/pexels-quang-nguyen-vinh-2135677.webp";
+import founder from "~/assets/pexels-tim-douglas-6205523.webp";
 
 export default function Index() {
   // let { user } = useLoaderData<LoaderData>();
@@ -101,7 +105,7 @@ export default function Index() {
           <div className="relative order-last flex items-center justify-center rounded-sm border-2 border-teal-800 shadow-sm lg:order-first">
             <img
               className="block max-h-96 object-cover"
-              src="pexels-greta-hoffman-7728345.webp"
+              src={farmers}
               alt="agricultorres carregando um carrinho de mão"
               width={1280}
               height={853}
@@ -132,7 +136,7 @@ export default function Index() {
           <div className="relative flex items-center justify-center rounded-sm border-2 border-teal-800 shadow-sm">
             <img
               className="block max-h-96 object-cover"
-              src="pexels-quang-nguyen-vinh-2135677.webp"
+              src={produtos}
               alt="agricultorres carregando um carrinho de mão"
               width={1920}
               height={1280}
@@ -169,7 +173,7 @@ export default function Index() {
         </div>
         <div className=" w-full lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <img
-            src="pexels-tim-douglas-6205523.webp"
+            src={founder}
             alt="mulher a sorrir"
             width={640}
             height={878}
