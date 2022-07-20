@@ -1,9 +1,9 @@
 import { Link } from "@remix-run/react";
 
-import legumes from "~/assets/pexels-daria-shevtsova-1508668.webp";
+import legumes from "~/assets/pexels-daria-shevtsova.webp";
 import fruta from "~/assets/pexels-elizabeth-tr-armstrong-635705.webp";
 import leguminosas from "~/assets/pexels-min-an-1638523.webp";
-import frutosSecos from "~/assets/pexels-arina-krasnikova-6316669.webp";
+import frutosSecos from "~/assets/pexels-arina-krasnikova-6316685.webp";
 
 export default function Index() {
   return (
@@ -39,8 +39,8 @@ export default function Index() {
       </ProductCard>
       <ProductCard
         img={frutosSecos}
-        height="1919"
-        width="1281"
+        height="1918"
+        width="1280"
         alt="frutos secos"
       >
         <Link

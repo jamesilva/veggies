@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from "@remix-run/react";
+import { Outlet } from "@remix-run/react";
 
 export default function Fruta() {
   return (

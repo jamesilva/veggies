@@ -15,7 +15,7 @@ export default function Index() {
     <>
       <section className="relative">
         <video autoPlay muted loop className="w-full">
-          <source src="pexels-karolina-grabowska-5243381.mp4" />
+          <source src="pexels-karolina-grabowska.mp4" />
         </video>
         <div className="absolute top-0 left-0 h-full w-full bg-black opacity-70"></div>
         <div className="absolute top-0 left-0 flex h-full w-full flex-col items-center justify-center">
