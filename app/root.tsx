@@ -17,15 +17,26 @@ import {
   useOutlet,
   useSubmit,
   useTransition,
+  NavLink,
 } from "@remix-run/react";
 import React from "react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
-import { getUser } from "./session.server";
-import { NavLink } from "react-router-dom";
+
 // import { motion, useAnimation } from "framer-motion";
 import nProgress from "nprogress";
 import nProgressStyles from "nprogress/nprogress.css";
+
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuPopover,
+  MenuLink,
+  MenuItems,
+} from "@reach/menu-button";
+
+import { getUser } from "./session.server";
 
 nProgress.configure({ showSpinner: false, trickleSpeed: 200 });
 
@@ -138,13 +149,15 @@ export default function App() {
             <div
               className={`${
                 visible ? "flex" : "hidden"
-              } grow flex-col items-center gap-y-3 md:flex md:flex-row `}
+              } grow flex-col items-center gap-y-4 pt-2 md:flex md:flex-row md:pt-0`}
             >
-              <ul className="flex grow flex-col items-center gap-y-1 transition duration-200 md:flex-row md:space-x-8">
+              <ul className="flex grow flex-col items-center gap-y-3 transition duration-200 md:flex-row md:space-x-8">
                 <li>
                   <NavLink
                     to="/produtos"
-                    className={({ isActive }) => (isActive ? "underline" : "")}
+                    className={({ isActive }) =>
+                      isActive ? " text-teal-600" : ""
+                    }
                   >
                     Produtos
                   </NavLink>
@@ -152,7 +165,9 @@ export default function App() {
                 <li>
                   <NavLink
                     to="/about"
-                    className={({ isActive }) => (isActive ? "underline" : "")}
+                    className={({ isActive }) =>
+                      isActive ? " text-teal-600" : ""
+                    }
                   >
                     Sobre Nós
                   </NavLink>
@@ -160,38 +175,47 @@ export default function App() {
                 <li>
                   <NavLink
                     to="/contacto"
-                    className={({ isActive }) => (isActive ? "underline" : "")}
+                    className={({ isActive }) =>
+                      isActive ? " text-teal-600" : ""
+                    }
                   >
                     Contacto
                   </NavLink>
                 </li>
               </ul>
-              {loaderData.user ? (
-                <button
-                  type="button"
-                  className="rounded border border-transparent py-1 px-3 hover:bg-gray-100"
-                  onClick={() =>
-                    submit(null, { method: "post", action: "logout" })
-                  }
-                >
-                  {loaderData.user.email}
-                </button>
-              ) : (
-                <div className="flex space-x-4">
-                  <Link
-                    to="login"
-                    className="rounded  py-1 px-3 hover:bg-gray-100"
-                  >
-                    Entrar
-                  </Link>
-                  <Link
-                    to="join"
-                    className="rounded border bg-teal-800 py-1 px-3 text-white hover:bg-teal-700"
-                  >
-                    Inscrever
-                  </Link>
-                </div>
-              )}
+              <div>
+                {loaderData.user ? (
+                  <UserPopover>
+                    <span className="rounded border border-transparent py-1 px-3 hover:bg-gray-100">
+                      ⚙
+                    </span>
+                  </UserPopover>
+                ) : (
+                  // <button
+                  //   type="button"
+                  //   className="rounded border border-transparent py-1 px-3 hover:bg-gray-100"
+                  //   onClick={() =>
+                  //     submit(null, { method: "post", action: "logout" })
+                  //   }
+                  // >
+                  //   {loaderData.user.email}
+                  // </button>
+                  <div className="flex space-x-4">
+                    <Link
+                      to="login"
+                      className="rounded  py-1 px-3 hover:bg-gray-100"
+                    >
+                      Entrar
+                    </Link>
+                    <Link
+                      to="join"
+                      className="rounded border bg-teal-800 py-1 px-3 text-white hover:bg-teal-700"
+                    >
+                      Inscrever
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </nav>
         </div>
@@ -235,5 +259,49 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
+  );
+}
+
+function UserPopover({ children }: { children: React.ReactNode }) {
+  let submit = useSubmit();
+
+  return (
+    <Menu>
+      {({ isExpanded }) => (
+        <div className="relative w-full">
+          <MenuButton
+            className={`flex items-center rounded rounded-b-none text-slate-700 hover:bg-slate-100 focus:bg-slate-100 ${
+              isExpanded ? "bg-slate-100" : "bg-white"
+            }`}
+          >
+            {children}
+          </MenuButton>
+          <MenuPopover
+            className="absolute -right-1/2 mt-2 md:right-0"
+            portal={false}
+          >
+            <div className=" rounded-b bg-white focus:outline-none">
+              <MenuItems className="flex flex-col gap-y-2 p-2 focus:outline-1">
+                <MenuLink
+                  as={Link}
+                  to="/dashboard"
+                  className="flex w-full justify-end rounded p-2 text-sm hover:bg-slate-200"
+                >
+                  Account
+                </MenuLink>
+                <MenuItem
+                  className="flex w-full cursor-pointer justify-end rounded p-2 text-sm hover:bg-slate-200"
+                  onSelect={() =>
+                    submit(null, { method: "post", action: "/logout" })
+                  }
+                >
+                  Logout
+                </MenuItem>
+              </MenuItems>
+            </div>
+          </MenuPopover>
+        </div>
+      )}
+    </Menu>
   );
 }

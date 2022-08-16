@@ -16,14 +16,10 @@ export function getAllProducts() {
   });
 }
 
-export function getProductListItems({
-  producerId,
-}: {
-  producerId: User["id"];
-}) {
+export function getProducerItems(producerId: User["id"]) {
   return prisma.product.findMany({
     where: { producerId },
-    select: { id: true, name: true },
+    select: { id: true, name: true, category: true },
     orderBy: { updatedAt: "desc" },
   });
 }

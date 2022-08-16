@@ -8,48 +8,44 @@ import frutosSecos from "~/assets/pexels-arina-krasnikova-6316685.webp";
 export default function Index() {
   return (
     <div className="grid grid-cols-1 gap-y-4 gap-x-4 lg:grid-cols-2">
-      <ProductCard img={legumes} height="1920" width="1280" alt="legumes">
-        <Link
-          to="legumes"
-          className="text-2xl font-semibold uppercase tracking-widest text-white"
+      <Link to="legumes" className="flex">
+        <ProductCard img={legumes} height="1920" width="1280" alt="legumes">
+          <div className="text-2xl font-semibold uppercase tracking-widest text-white">
+            Legumes
+          </div>
+        </ProductCard>
+      </Link>
+      <Link to="fruta" className="flex">
+        <ProductCard img={fruta} width="1279" height="829" alt="fruta">
+          <div className="text-2xl font-semibold uppercase tracking-widest text-white">
+            Fruta
+          </div>
+        </ProductCard>
+      </Link>
+      <Link to="leguminosas" className="flex">
+        <ProductCard
+          img={leguminosas}
+          width="1924"
+          height="1280"
+          alt="leguminosas"
         >
-          Legumes
-        </Link>
-      </ProductCard>
-      <ProductCard img={fruta} width="1279" height="829" alt="fruta">
-        <Link
-          className="text-2xl font-semibold uppercase tracking-widest text-white"
-          to="fruta"
+          <div className="text-2xl font-semibold uppercase tracking-widest text-white">
+            Leguminosas
+          </div>
+        </ProductCard>
+      </Link>
+      <Link to="frutos-secos" className="flex">
+        <ProductCard
+          img={frutosSecos}
+          height="1918"
+          width="1280"
+          alt="frutos secos"
         >
-          Fruta
-        </Link>
-      </ProductCard>
-      <ProductCard
-        img={leguminosas}
-        width="1924"
-        height="1280"
-        alt="leguminosas"
-      >
-        <Link
-          className="text-2xl font-semibold uppercase tracking-widest text-white"
-          to="leguminosas"
-        >
-          Leguminosas
-        </Link>
-      </ProductCard>
-      <ProductCard
-        img={frutosSecos}
-        height="1918"
-        width="1280"
-        alt="frutos secos"
-      >
-        <Link
-          className="text-2xl font-semibold uppercase tracking-widest text-white"
-          to="frutos-secos"
-        >
-          Frutos Secos
-        </Link>
-      </ProductCard>
+          <div className="text-2xl font-semibold uppercase tracking-widest text-white">
+            Frutos Secos
+          </div>
+        </ProductCard>
+      </Link>
     </div>
   );
 }
