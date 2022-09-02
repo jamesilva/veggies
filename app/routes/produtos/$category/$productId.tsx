@@ -18,16 +18,22 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 export default function ProductPage() {
   let { product } = useLoaderData<LoaderData>();
   return (
-    <article className="grid grid-rows-[1fr,2fr]">
+    <article className="flex w-1/2 flex-col gap-y-4">
       <div>
         <h4>{product.name}</h4>
         🥬
-        <p>Quantity: {product.quantity}</p>
-        <p>Price: {product.price}</p>
       </div>
       <div>
+        <p>Quantidade: {product.quantity}</p>
+        <p>Preço: {product.price} €</p>
         <p>{product.description}</p>
       </div>
+      <button
+        className="rounded border bg-teal-800 py-1 px-3 text-white hover:bg-teal-700"
+        type="button"
+      >
+        Encomendar
+      </button>
     </article>
   );
 }

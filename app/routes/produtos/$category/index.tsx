@@ -18,13 +18,15 @@ export default function Category() {
     <div className="grid grid-cols-4 gap-x-4">
       {categoryProduts.map((product) => (
         <Link key={product.id} to={product.id}>
-          <img
-            src={product.name === "Alface" ? alface : batatas}
-            alt="alface"
-            className="rounded object-cover"
-            width={600}
-            height={600}
-          />
+          <div className="overflow-clip">
+            <img
+              src={product.name === "Alface" ? alface : batatas}
+              alt="alface"
+              className="rounded object-cover transition-transform duration-150 hover:scale-105"
+              width={600}
+              height={600}
+            />
+          </div>
           <span>{product.name}</span>
         </Link>
       ))}
